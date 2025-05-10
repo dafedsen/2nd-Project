@@ -42,18 +42,32 @@ docker cp ./metabase.db.mv.db metabase:/metabase.db/metabase.db.mv.db
 
 ## Menggunakan Fungsi Predict
 ```
+import pandas as pd
+from predict_students import predict_students
+
+# Load data siswa baru (tanpa kolom 'Status')
+df_new = pd.read_csv("new_students.csv")
+
+# Jalankan prediksi
+df_predicted = predict_students(
+    df_input=df_new,
+    model_path="model/random_forest_model.pkl",
+    scaler_path="model/feature_scaler.pkl",
+    label_encoder_path="model/label_encoder_status.pkl"
+)
+
+# Tampilkan hasil
+print(df_predicted[['Predicted_Status']])
 ```
 
 ## Business Dashboard
 
-Dashboard dibuat menggunakan Looker Studio yang menampilkan:
+Dashboard dibuat menggunakan Metabase yang menampilkan:
 
-* Distribusi status mahasiswa (dropout, graduate, enrolled)
+* Distribusi status mahasiswa (dropout, graduate)
 * Rata-rata nilai akademik berdasarkan status
 * Visualisasi korelasi fitur-fitur penting dengan status dropout
 * Tren performa berdasarkan semester
-
-**Link dashboard:** \[akan diisi setelah dipublikasikan]
 
 ## Menjalankan Sistem Machine Learning
 
@@ -62,8 +76,8 @@ Sistem prediksi dropout dikembangkan dengan Random Forest Classifier. Aplikasi i
 Cara menjalankan prototype:
 
 ```
-1. Buka link berikut: [akan diisi setelah deploy]
-2. Masukkan data mahasiswa baru melalui form yang tersedia.
+1. Buka link berikut: https://2nd-project-qknzasy4kp4jamd8xxntpd.streamlit.app
+2. Pilih mahasiswa aktif dari data yang sudah ada.
 3. Klik tombol prediksi untuk melihat apakah mahasiswa tersebut berpotensi dropout.
 ```
 
