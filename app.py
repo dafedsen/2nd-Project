@@ -3,9 +3,14 @@ import pandas as pd
 import numpy as np
 import joblib
 
-model = joblib.load(r"model\random_forest_model.pkl")
-scaler = joblib.load(r"model\feature_scaler.pkl")
-label_encoder = joblib.load(r"model\label_encoder_status.pkl")
+try:
+    model = joblib.load(r"model\random_forest_model.pkl")
+    scaler = joblib.load(r"model\feature_scaler.pkl")
+    label_encoder = joblib.load(r"model\label_encoder_status.pkl")
+except FileNotFoundError:
+    model = joblib.load(r"model/random_forest_model.pkl")
+    scaler = joblib.load(r"model/feature_scaler.pkl")
+    label_encoder = joblib.load(r"model/label_encoder_status.pkl")
 
 df_students = pd.read_csv("data.csv", delimiter=";")
 df_enrolled = df_students[df_students['Status'] == 'Enrolled'].copy()
